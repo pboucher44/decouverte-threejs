@@ -1,0 +1,33 @@
+{
+  "name": "quick-parcel-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.html",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "dependencies": {
+    "camera-controls": "^1.28.0",
+    "parcel-plugin-asset-copier": "^1.1.0",
+    "parcel-plugin-static-files-copy": "^2.6.0",
+    "posthtml-img-autosize": "^0.1.6",
+    "scss": "^0.2.4",
+    "three": "^0.127.0",
+    "three-gltf-loader": "^1.111.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "posthtml-include": "^1.6.0",
+    "posthtml-modules": "^0.7.3",
+    "sass": "^1.26.11"
+  },
+  "staticFiles": {
+    "staticPath": [
+      "src/assets/fini.gltf"
+    ]
+  }
+}
