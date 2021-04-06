@@ -76,8 +76,7 @@ var text3
 fontLoader.load( 'helvetiker_regular.typeface.json', function(font)
 {
     var logo = new THREE.TextGeometry( 'Motivation\n' +
-        'J\'ai cree ce site web\npar pure envie.\nJe voulais decouvrir ce\nqu\'etait la programmation conceptuelle.\nL\'experience aura ete\nenrichissante mais je ne\nm\'y connais pas assez\nen modelisation 3D\n' +
-        'pour produire un travail propre', {
+        'J\'ai cree ce site web\npar pure envie.\nJe voulais decouvrir ce\nqu\'etait la programmation conceptuelle.\nL\'experience aura ete\nenrichissante bien que je\nm\'y connaisse peu\nen modelisation 3D\n', {
         font: font,
         size: 10,
         height: 1,
@@ -86,7 +85,7 @@ fontLoader.load( 'helvetiker_regular.typeface.json', function(font)
     var material = new THREE.MeshPhongMaterial({color:0xFFFFFF});
     text3 = new THREE.Mesh(logo, material);
     text3.position.set( -285, -325, -480 );
-    text3.rotation.x = 0.5;
+    text3.rotation.x = 0.6;
     scene.add(text3);
 });
 
