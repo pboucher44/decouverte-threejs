@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "camera-controls": "^1.28.0",
+    "dat.gui": "^0.7.7",
     "parcel-plugin-asset-copier": "^1.1.0",
     "parcel-plugin-static-files-copy": "^2.6.0",
     "posthtml-img-autosize": "^0.1.6",
@@ -27,7 +28,8 @@
   },
   "staticFiles": {
     "staticPath": [
-      "src/assets/fini.gltf"
+      "src/assets/myself.gltf",
+      "src/assets/helvetiker_regular.typeface.json"
     ]
   }
 }
