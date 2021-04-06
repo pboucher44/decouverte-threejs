@@ -1,9 +1,18 @@
 import "../scss/base.scss";
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
-import * as dat from 'dat.gui';
 
 window.addEventListener( 'resize', onWindowResize, false );
+
+var RESOURCES_LOADED = false;
+var loadingManager = new THREE.LoadingManager();
+var loadingpage = document.getElementById('loadingpage');
+
+loadingManager.onLoad = function(){
+    console.log("loaded all resources");
+    RESOURCES_LOADED = true;
+};
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
@@ -25,34 +34,78 @@ light.position.y = 2.3;
 light.position.z = 1;
 scene.add( light );
 
-var gui = new dat.GUI();
-var f1 = gui.addFolder('light');
-f1.add(light, 'intensity', 0, 10);
-f1.add(light.position, 'x', -10, 10);
-f1.add(light.position, 'y', -10, 10);
-f1.add(light.position, 'z', -10, 10);
+var fontLoader = new THREE.FontLoader(loadingManager);
 
 //text pres
-var f3 = gui.addFolder('text1');
-textGenerator('Pierre BOUCHER\n' +
-    'Actuellement en dernière année\nde Master en alternance\n(contrat de professionnalisation)\navec Sopra Steria depuis 3 ans.\n' +
-    'Mes technologies de prédilection\nsont le Java (7 et 8+) ainsi que\nAngular (JS et 2+). ', -285, 75, -400, 0, f3);
+var text1
+fontLoader.load( 'helvetiker_regular.typeface.json', function(font)
+{
+    var logo = new THREE.TextGeometry( 'Pierre BOUCHER\n' +
+        'Actuellement en derniere annee\nde Master en alternance\n(contrat de professionnalisation)\nen collaboration avec\nSopra Steria depuis 3 ans.\n' +
+        'Mes technologies de predilection\nsont le Java (7 et 8+) ainsi que\nAngular (JS et 2+). ', {
+        font: font,
+        size: 10,
+        height: 1,
+        width: 1
+    });
+    var material = new THREE.MeshPhongMaterial({color:0xFFFFFF});
+    text1 = new THREE.Mesh(logo, material);
+    text1.position.set( -285, 75, -400 );
+    text1.rotation.x = 0;
+    scene.add(text1);
+});
 
-//text pres
-var f4 = gui.addFolder('text2');
-textGenerator('Pierre BOUCHER\n' +
-    'Actuellement en dernière année\nde Master en alternance\n(contrat de professionnalisation)\navec Sopra Steria depuis 3 ans.\n' +
-    'Mes technologies de prédilection\nsont le Java (7 et 8+) ainsi que\nAngular (JS et 2+). ', -285, -60, -400, 0.25, f4);
-//text pres
-var f5 = gui.addFolder('text3');
-textGenerator('Pierre BOUCHER\n' +
-    'Actuellement en dernière année\nde Master en alternance\n(contrat de professionnalisation)\navec Sopra Steria depuis 3 ans.\n' +
-    'Mes technologies de prédilection\nsont le Java (7 et 8+) ainsi que\nAngular (JS et 2+). ', -285, -205, -455, 0.5, f5);
-//text pres
-var f6 = gui.addFolder('text4');
-textGenerator('Pierre BOUCHER\n' +
-    'Actuellement en dernière année\nde Master en alternance\n(contrat de professionnalisation)\navec Sopra Steria depuis 3 ans.\n' +
-    'Mes technologies de prédilection\nsont le Java (7 et 8+) ainsi que\nAngular (JS et 2+). ', -285, -338, -540,0.75, f6);
+var text2
+fontLoader.load( 'helvetiker_regular.typeface.json', function(font)
+{
+    var logo = new THREE.TextGeometry( 'Three.js\n' +
+        'Ce site web a ete concu\nen three.js qui est\nune librairie permettant \nde faire de la 3d.\nje precise que ce site web\nest un poc.\nIl faudrait tout reprendre a zero', {
+        font: font,
+        size: 10,
+        height: 1,
+        width: 1
+    });
+    var material = new THREE.MeshPhongMaterial({color:0xFFFFFF});
+    text2 = new THREE.Mesh(logo, material);
+    text2.position.set( -285, -125, -440 );
+    text2.rotation.x = 0.25;
+    scene.add(text2);
+});
+
+var text3
+fontLoader.load( 'helvetiker_regular.typeface.json', function(font)
+{
+    var logo = new THREE.TextGeometry( 'Motivation\n' +
+        'J\'ai cree ce site web\npar pure envie.\nJe voulais decouvrir ce\nqu\'etait la programmation conceptuelle.\nL\'experience aura ete\nenrichissante mais je ne\nm\'y connais pas assez\nen modelisation 3D\n' +
+        'pour produire un travail propre', {
+        font: font,
+        size: 10,
+        height: 1,
+        width: 1
+    });
+    var material = new THREE.MeshPhongMaterial({color:0xFFFFFF});
+    text3 = new THREE.Mesh(logo, material);
+    text3.position.set( -285, -325, -480 );
+    text3.rotation.x = 0.5;
+    scene.add(text3);
+});
+
+var text4
+fontLoader.load( 'helvetiker_regular.typeface.json', function(font)
+{
+    var logo = new THREE.TextGeometry( 'Contact\n' +
+        'Vous pouvez me joindre ici:\nmail: boucher.pierre44400@hotmail.fr\nTel: 06 58 51 28 69\nSite web:\nwww.pierreboucher.fr\n', {
+        font: font,
+        size: 10,
+        height: 1,
+        width: 1
+    });
+    var material = new THREE.MeshPhongMaterial({color:0xFFFFFF});
+    text4 = new THREE.Mesh(logo, material);
+    text4.position.set( -285, -525, -520 );
+    text4.rotation.x = 0.9;
+    scene.add(text4);
+});
 
 loader.load( 'myself.gltf', function ( gltf ) {
     scene.traverse((gltf) => {
@@ -66,10 +119,6 @@ loader.load( 'myself.gltf', function ( gltf ) {
     myObj.position.x = 0.2;
     myObj.rotation.y = -1;
 
-    var f2 = gui.addFolder('myObj');
-    f2.add(myObj.rotation, 'y', -1, 1);
-    f2.add(myObj.position, 'x', -1, 1);
-
     scene.add( myObj );
     animate();
 }, undefined, function ( error ) {
@@ -80,37 +129,12 @@ scene.traverse(function( obj ) {
     obj.frustumCulled = false;
 });
 
-function textGenerator(text, posx, posy, posz, rotax, guifolder) {
-    var fontLoader = new THREE.FontLoader();
-    var font = fontLoader.load( 'helvetiker_regular.typeface.json', function(font)
-    {
-        var logo = new THREE.TextGeometry( text, {
-            font: font,
-            size: 10,
-            height: 1,
-            width: 1
-        });
-
-        var material = new THREE.MeshPhongMaterial({color:0xFFFFFF});
-        var mesh = new THREE.Mesh(logo, material);
-
-        mesh.position.set( posx, posy, posz );
-        mesh.rotation.x = rotax;
-
-
-        guifolder.add(mesh.position, 'x', -400, 200);
-        guifolder.add(mesh.position, 'y', -400, 200);
-        guifolder.add(mesh.position, 'z', -600, 200);
-
-        guifolder.add(mesh.rotation, 'x', -10, 10);
-        guifolder.add(mesh.rotation, 'y', -10, 10);
-        guifolder.add(mesh.rotation, 'z', -10, 10);
-
-        scene.add(mesh);
-    });
-}
-
 function animate() {
+    if( RESOURCES_LOADED == true ){
+        document.getElementById("MyCoolDiv").removeChild(loadingpage);
+        RESOURCES_LOADED == false
+    }
+
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
 }
@@ -123,10 +147,78 @@ function onWindowResize() {
 
 function onWheelFunction(event) {
     if(event.deltaY > 0 && myObj.rotation.y < 1) {
-        myObj.rotation.y += 0.1;
+        text1.rotation.x -= 0.01;
+        text2.rotation.x -= 0.01;
+        text3.rotation.x -= 0.01;
+        text4.rotation.x -= 0.01;
+        renderer.render( scene, camera );
+
+
+        text1.position.y += 6;
+        text2.position.y += 6;
+        text3.position.y += 6;
+        text4.position.y += 6;
+        renderer.render( scene, camera );
+
+        if (text1.position.y > 75) {
+            text1.position.z -= 1.2;
+        } else {
+            text1.position.z += 1.2
+        }
+        if (text2.position.y > 75) {
+            text2.position.z -= 1.2;
+        } else {
+            text2.position.z += 1.2
+        }
+        if (text3.position.y > 75) {
+            text3.position.z -= 1.2;
+        } else {
+            text3.position.z += 1.2
+        }
+        if (text4.position.y > 75) {
+            text4.position.z -= 1.2;
+        } else {
+            text4.position.z += 1.2
+        }
+
+        myObj.rotation.y += 0.02;
 
     } else if(event.deltaY < 0 && myObj.rotation.y > -1){
-        myObj.rotation.y -= 0.1;
+        text1.rotation.x += 0.01;
+        text2.rotation.x += 0.01;
+        text3.rotation.x += 0.01;
+        text4.rotation.x += 0.01;
+        renderer.render( scene, camera );
+
+        text1.position.y -= 6;
+        text2.position.y -= 6;
+        text3.position.y -= 6;
+        text4.position.y -= 6;
+
+        renderer.render( scene, camera );
+
+        if (text1.position.y > 75) {
+            text1.position.z += 1.2;
+        } else {
+            text1.position.z -= 1.2
+        }
+        if (text2.position.y > 75) {
+            text2.position.z += 1.2;
+        } else {
+            text2.position.z -= 1.2
+        }
+        if (text3.position.y > 75) {
+            text3.position.z += 1.2;
+        } else {
+            text3.position.z -= 1.2
+        }
+        if (text4.position.y > 75) {
+            text4.position.z += 1.2;
+        } else {
+            text4.position.z -= 1.2
+        }
+
+        myObj.rotation.y -= 0.02;
     }
     renderer.render( scene, camera );
 }

@@ -1,5 +1,5 @@
-$base-background: white;
-$primary-text-color: black;
+$base-background: black;
+$primary-text-color: white;
 
 #app {
   color: $primary-text-color;
@@ -8,4 +8,16 @@ $primary-text-color: black;
 
 body {
   margin: 0;
+}
+
+#loadingpage {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  color: white;
+  font-size: 8vh;
+  border-color: white;
+  border-width: 2px;
+  border-style: groove;
+  padding: 4px 10px 4px 10px;
 }
