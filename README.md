@@ -1,6 +1,4 @@
-# quick-parcel-project
-
-Quick starter for a parcel project.
+https://threejs-training.netlify.app/
 
 ## Building and running on localhost
 
